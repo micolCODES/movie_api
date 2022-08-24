@@ -1,13 +1,20 @@
 //imports the express module locally so it can be used within the file.
 const express = require('express');
+//import morgan locally
+morgan = require('morgan');
 //declares a variable that encapsulates Express’s functionality to configure your web server.
 //this variable will be used to route your HTTP requests and responses.
 const app = express();
 
-const express = require('express');
-const app = express();
+//using middeware function
+app.use(morgan('common'));
 
-//Harry Potter and the Sorcerer\'s Stone
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
+
+//info on my 10 movies
 let topMovies = [
   {
     title: 'About Time',
@@ -71,16 +78,16 @@ let topMovies = [
   }
 ];
 
-// GET requests
+// browser print something
 app.get('/', (req, res) => {
-  res.send('Welcome to my book club!');
+  res.send('The first Rule of the Movie app is that you don\'t talk about the movie app');
 });
 
-app.get('/documentation', (req, res) => {                  
-  res.sendFile('public/documentation.html', { root: __dirname });
-});
+// get all files in public folder
+app.use(express.static('public'));
 
-app.get('/books', (req, res) => {
+//get json with movies
+app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 
