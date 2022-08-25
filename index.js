@@ -3,6 +3,8 @@ const express = require('express');
 //import morgan locally
 morgan = require('morgan');
 bodyParser = require('body-parser');
+methodOverride = require('method-override');
+
 //declares a variable that encapsulates Express’s functionality to configure your web server.
 //this variable will be used to route your HTTP requests and responses.
 const app = express();
@@ -90,14 +92,16 @@ app.get('/movies', (req, res) => {
 });
 
 //using middeware function
-app.use(morgan('combined'));
+app.use(morgan('common'));
 
 // get all files in public folder
 app.use(express.static('public'));
 
 // support parsing of application/json type post data COPY/PASTE
-app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
+app.use(methodOverride());
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
