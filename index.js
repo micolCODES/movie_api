@@ -2,20 +2,13 @@
 const express = require('express');
 //import morgan locally
 morgan = require('morgan');
+bodyParser = require('body-parser');
 //declares a variable that encapsulates Express’s functionality to configure your web server.
 //this variable will be used to route your HTTP requests and responses.
 const app = express();
 
-//using middeware function
-app.use(morgan('common'));
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send('Something broke!');
-});
-
 //info on my 10 movies
-let topMovies = [
+let movies = [
   {
     title: 'About Time',
     year: '2013',
@@ -80,17 +73,36 @@ let topMovies = [
 
 // browser print something
 app.get('/', (req, res) => {
-  res.send('The first Rule of the Movie app is that you don\'t talk about the movie app');
+  res.send('The first Rule of the Movie app is...');
 });
+
+app.get('/documentation', (req, res) => {                  
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
+
+app.get('/index', (req, res) => {                  
+  res.sendFile('public/index.html', { root: __dirname });
+});
+
+//get json with movies
+app.get('/movies', (req, res) => {
+  res.json(movies);
+});
+
+//using middeware function
+app.use(morgan('combined'));
 
 // get all files in public folder
 app.use(express.static('public'));
 
-//get json with movies
-app.get('/movies', (req, res) => {
-  res.json(topMovies);
-});
+// support parsing of application/json type post data COPY/PASTE
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 // listen for requests
 app.listen(8080, () => {
