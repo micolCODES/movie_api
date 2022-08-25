@@ -1,0 +1,25 @@
+.table {
+    max-width: 1000px;
+    box-sizing: border-box;
+}
+
+td {
+    padding: 10px;
+    vertical-align: super;
+    text-align: left;
+    border: 1px solid black;
+}
+
+th {
+    vertical-align: super;
+    text-align: center;
+    border: 1px solid black;
+}
+
+
+.code {
+    color: red;
+    background: rgb(249, 208, 214);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center !important;
+}
