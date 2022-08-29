@@ -41,7 +41,7 @@
         <td>Return data (synopsis, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user;</td>
         <td><span class="code">GET</span></td>
         <td>READ</td>
-        <td>/movies/[name]</td>
+        <td>/movies/:title</td>
         <td>none</td>
         <td>A JSON object holding data about that movie. Example:<br>
         {<br>
@@ -62,7 +62,7 @@
         <td>Return data about a genre (description) by name/title (e.g., “Thriller”);</td>
         <td><span class="code">GET</span></td>
         <td>READ</td>
-        <td>/movies ???</td>
+        <td>/movies/genre/:genreName</td>
         <td>none</td>
         <td>A JSON object holding data about movies in that genre. Example:<br>
             {<br>
@@ -83,7 +83,7 @@
         <td>Return data about a director (bio, birth year, death year) by name;</td>
         <td><span class="code">GET</span></td>
         <td>READ</td>
-        <td>/movies/[name]/[director]</td>
+        <td>/movies/directors/:directorName</td>
         <td>none</td>
         <td>A JSON object holding data about the director<br>
             {<br>
@@ -97,7 +97,7 @@
         <td>Allow new users to register;</td>
         <td><span class="code">POST</span></td>
         <td>CREATE</td>
-        <td>/movies</td>
+        <td>/users</td>
         <td>A JSON object holding data about the user to add, structured like:<br>
             {<br>
             username: ...<br>
@@ -109,7 +109,7 @@
         <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added);</td>
         <td><span class="code">POST</span></td>
         <td>CREATE</td>
-        <td>/movies</td>
+        <td>/users/:id/:movieTitle</td>
         <td>A JSON object holding data about the movie to add, structured like:<br>
             {<br>
             title: "..."<br>
@@ -123,7 +123,7 @@
         <td>Allow users to update their user info (username);</td>
         <td><span class="code">UPDATE</span></td>
         <td>UPDATE</td>
-        <td>/movies/users/[username]</td>
+        <td>/users/:id</td>
         <td>none</td>
         <td>A text that the username has been changed</td>
     </tr>
@@ -131,7 +131,7 @@
         <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);</td>
         <td><span class="code">DELETE</span></td>
         <td>DELETE</td>
-        <td>/movies/[name]</td>
+        <td>/users/:id/:movieTitle</td>
         <td>none</td>
         <td>A text message indicating whether the movie was successfully removed</td>
     </tr>
@@ -139,7 +139,7 @@
         <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).</td>
         <td><span class="code">DELETE</span></td>
         <td>DELETE</td>
-        <td>/movies/users/[username]</td>
+        <td>/users/:id</td>
         <td>none</td>
         <td>A text message indicating whether the user email has been successfully removed</td>
     </tr>
