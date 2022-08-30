@@ -54,7 +54,7 @@ let movies = [
       'description': 'Musical film is a film genre in which songs by the characters are interwoven into the narrative, sometimes accompanied by singing and dancing. The songs usually advance the plot or develop the film\'s characters, but in some cases, they serve merely as breaks in the storyline, often as elaborate "production numbers".'
     },
     'synopsis': 'The musical depicts the lives of greaser Danny Zuko and Australian transfer student Sandy Olsson, who develop an attraction for each other during a summer romance.',
-    'imageURL': "https://www.imdb.com/title/tt0077631/mediaviewer/rm371555328/?ref_=tt_ov_i"
+    'imageURL': "https://bit.ly/3cwbXg4"
   },
   {
     'title': 'Dirty Dancing',
@@ -70,7 +70,7 @@ let movies = [
       'description': 'Romance genre stories involve chivalry and often adventure. The prevailing type of story in the romance genre consists of a love relationship between a man and a woman, often from the woman\'s point of view. There is always conflict that hinders the relationship, but is resolved to a "happy ending".'
   },
   'synopsis': 'The film tells the story of Frances "Baby" Houseman, a young woman who falls in love with dance instructor Johnny Castle at a vacation resort.',
-  'imageURL': "https://www.imdb.com/title/tt0092890/mediaviewer/rm4168602624/?ref_=tt_ov_i"
+  'imageURL': "https://bit.ly/3KsHk81"
   },
   {
     'title': 'Coach Carter',
@@ -86,7 +86,7 @@ let movies = [
       'description': 'The drama genre features stories with high stakes and many conflicts. They\'re plot-driven and demand that every character and scene move the story forward. Dramas follow a clearly defined narrative plot structure, portraying real-life scenarios or extreme situations with emotionally-driven characters.'
     },
     'synopsis': 'The film is based on the true story of Richmond High School basketball coach Ken Carter, who made headlines in 1999 for suspending his undefeated high school basketball team due to poor academic results.',
-    'imageURL': ""
+    'imageURL': "https://bit.ly/3e7eFsN"
   },
   {
     'title': 'The Blind Side',
@@ -102,7 +102,7 @@ let movies = [
       'description': 'The drama genre features stories with high stakes and many conflicts. They\'re plot-driven and demand that every character and scene move the story forward. Dramas follow a clearly defined narrative plot structure, portraying real-life scenarios or extreme situations with emotionally-driven characters.'
     },
     'synopsis': 'The film tells the story of Michael Oher, an American football offensive lineman who overcame an impoverished upbringing to play in the National Football League (NFL) with the help of his adoptive parents Sean and Leigh Anne Tuohy',
-    'imageURL': ""
+    'imageURL': "https://bit.ly/3R65KGP"
   },
   {
     'title': 'Avatar',
@@ -118,7 +118,7 @@ let movies = [
       'description': 'Fantasy films are films that belong to the fantasy genre with fantastic themes, usually magic, supernatural events, mythology, folklore, or exotic fantasy worlds. The genre is considered a form of speculative fiction alongside science fiction films and horror films, although the genres do overlap.'
     },
     'synopsis': 'The film is set in the mid-22nd century when humans are colonizing Pandora, a lush habitable moon of a gas giant in the Alpha Centauri star system, in order to mine the valuable mineral unobtanium. The expansion of the mining colony threatens the continued existence of a local tribe of Na\'vi – a humanoid species indigenous to Pandora.',
-    'imageURL': ""
+    'imageURL': "https://bit.ly/3Q2jYXM"
   },
   {
     'title': 'The Lord of the Rings - Trilogy',
@@ -134,7 +134,7 @@ let movies = [
       'description': 'Fantasy films are films that belong to the fantasy genre with fantastic themes, usually magic, supernatural events, mythology, folklore, or exotic fantasy worlds. The genre is considered a form of speculative fiction alongside science fiction films and horror films, although the genres do overlap.'
     },
     'synopsis': 'Set in the fictional world of Middle-earth, the films follow the hobbit Frodo Baggins as he and the Fellowship embark on a quest to destroy the One Ring, to ensure the destruction of its maker, the Dark Lord Sauron. The Fellowship eventually splits up and Frodo continues the quest with his loyal companion Sam and the treacherous Gollum. Meanwhile, Aragorn, heir in exile to the throne of Gondor, along with Legolas, Gimli, Boromir, Merry, Pippin and the wizard Gandalf, unite to save the Free Peoples of Middle-earth from the forces of Sauron and rally them in the War of the Ring to aid Frodo by distracting Sauron\'s attention.',
-    'imageURL': ""
+    'imageURL': "https://imdb.to/2PbkYtr"
   },
   {
     'title': 'Harry Potter - film series',
@@ -166,7 +166,7 @@ let movies = [
       'description': 'Romance genre stories involve chivalry and often adventure. The prevailing type of story in the romance genre consists of a love relationship between a man and a woman, often from the woman\'s point of view. There is always conflict that hinders the relationship, but is resolved to a "happy ending".'
   },
   'synopsis': 'Two women troubled with guy-problems swap homes in each other\'s countries, where they each meet a local guy and fall in love.',
-  'imageURL': ""
+  'imageURL': "https://bit.ly/3AX6f0l"
   },
   {
     'title': 'Pride and Prejudice',
@@ -263,9 +263,9 @@ app.post('/users/:id/:movieTitle', (req, res) => {
 
     if (user) {
       user.favoriteMovies.push(movieTitle);
-      res.status(200).json(user);
+      res.status(200).send(`${movieTitle} has been added to the user ${id}\'s list of favorites`);
     } else {
-      res.status(400).send(`${movieTitle} has been added to the user ${id}\'s list of favorites`);
+      res.status(400).send(`${movieTitle} cannot be added to the user ${id}\'s list of favorites`);
     }
 })
 

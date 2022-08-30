@@ -64,19 +64,10 @@
         <td>READ</td>
         <td>/movies/genre/:genreName</td>
         <td>none</td>
-        <td>A JSON object holding data about movies in that genre. Example:<br>
+        <td>A JSON object holding the description of that genre. Example:<br>
             {<br>
-            title: "..."',<br>
-            year: 0000,<br>
-            director: {<br>
-                &emsp;name: ...,<br>
-                &emsp;bio: ...,<br>
-                &emsp;birth year: 0000,<br>
-                &emsp;death year: 0000<br>
-            }<br>
-            actors: ..., ...<br>
-            genre: ...<br>
-            synopsis: ...<br>
+            name: ''...',<br>
+            description: '...'<br>
             }</td>
     </tr>
     <tr class="row">
@@ -100,10 +91,14 @@
         <td>/users</td>
         <td>A JSON object holding data about the user to add, structured like:<br>
             {<br>
-            username: ...<br>
-            pw: ***<br>
+            username: '...'<br>
+            favoriteMovie: '...'<br>
             }</td>
-        <td>A text message indicating the new user was added</td>
+        <td>A JSON object holding data about the user added, structured like:<br>
+            {<br>
+            username: '...'<br>
+            favoriteMovie: '...'<br>
+            }</td>
     </tr>
     <tr class="row">
         <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added);</td>
