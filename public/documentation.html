@@ -89,54 +89,64 @@
         <td><span class="code">POST</span></td>
         <td>CREATE</td>
         <td>/users</td>
-        <td>A JSON object holding data about the user to add, structured like:<br>
+        <td>A JSON in this format<br>
             {<br>
-            username: '...'<br>
-            favoriteMovie: '...'<br>
+              Username: String,(required)<br>
+              Password: String,(required)<br>
+              Email: String,(required)<br>
+              Birthday: Date<br>
             }</td>
-        <td>A JSON object holding data about the user added, structured like:<br>
+        <td>A JSON in this format<br>
             {<br>
-            username: '...'<br>
-            favoriteMovie: '...'<br>
+              Username: String,(required)<br>
+              Password: String,(required)<br>
+              Email: String,(required)<br>
+              Birthday: Date<br>
             }</td>
     </tr>
     <tr class="row">
         <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added);</td>
         <td><span class="code">POST</span></td>
         <td>CREATE</td>
-        <td>/users/:id/:movieTitle</td>
-        <td>A JSON object holding data about the movie to add, structured like:<br>
-            {<br>
-            title: "..."<br>
-            year: 000<br>
-            actors: ..., ...<br>
-            synopsis: ...<br>
-            }</td>
+        <td>/users/:Username/movies/:MovieID</td>
+        <td>A JSON containg the Username and Favorite movie by ID</td>
         <td>A text that a movie has been added</td>
     </tr>
     <tr class="row">
         <td>Allow users to update their user info (username);</td>
         <td><span class="code">UPDATE</span></td>
         <td>UPDATE</td>
-        <td>/users/:id</td>
-        <td>none</td>
-        <td>A text that the username has been changed</td>
+        <td>/users/:Username</td>
+        <td>A JSON in this format<br>
+            {<br>
+              Username: String,(required)<br>
+              Password: String,(required)<br>
+              Email: String,(required)<br>
+              Birthday: Date<br>
+            }</td>
+        <td>A JSON in this format<br>
+            {<br>
+              Username: String,<br>
+              Password: String,<br>
+              Email: String,<br>
+              Birthday: Date<br>
+            }</td>
     </tr>
     <tr class="row">
         <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later);</td>
         <td><span class="code">DELETE</span></td>
         <td>DELETE</td>
-        <td>/users/:id/:movieTitle</td>
-        <td>none</td>
+        <td>/users/:Username/movies/:MovieID</td>
+        <td>A JSON containg the Username and Favorite movie by ID</td>
         <td>A text message indicating whether the movie was successfully removed</td>
     </tr>
     <tr class="row">
         <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later).</td>
         <td><span class="code">DELETE</span></td>
         <td>DELETE</td>
-        <td>/users/:id</td>
+        <td>/users/:Username</td>
         <td>none</td>
-        <td>A text message indicating whether the user email has been successfully removed</td>
+        <td>Username was deleted</td>
     </tr>
 </table>
 </body>   
