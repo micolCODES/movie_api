@@ -526,4 +526,6 @@ Users.findOneAndRemove({ Username: req.params.Username })
 });
 
 // listen for requests
-app.listen(8080, () => console.log('Your app is listening on port 8080.'));
+app.listen(port, '0.0.0.0',() => {
+  console.log('Listening on Port ' + port);
+ });
