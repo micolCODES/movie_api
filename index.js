@@ -396,7 +396,12 @@ Email: String,
 (required)
 Birthday: Date
 }*/
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),[
+  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').not().isEmpty(),
+  check('Email', 'Email does not appear to be valid').isEmail()
+], (req, res) => {
 // check the validation object for errors
 let errors = validationResult(req);
 
@@ -404,10 +409,12 @@ if (!errors.isEmpty()) {
   return res.status(422).json({ errors: errors.array() });
 }
 
+let hashedPassword = Users.hashPassword(req.body.Password);
+
 Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
   {
     Username: req.body.Username,
-    Password: req.body.Password,
+    Password: hashedPassword,
     Email: req.body.Email,
     Birthday: req.body.Birthday
   }
@@ -439,6 +446,7 @@ const { id, movieTitle } = req.params;
 
 // Add a movie to a user's list of favorites NEW CODE W/MONGOOSE
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
+  console.log(req.params);
 Users.findOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
   },
@@ -448,6 +456,10 @@ Users.findOneAndUpdate({ Username: req.params.Username }, {
     console.error(err);
     res.status(500).send('Error: ' + err);
   } else {
+    if (!updatedUser) {
+      res.status(404).send('User could not be found.');
+    }
+    console.log('updated users',updatedUser);
     res.json(updatedUser);
   }
 });
