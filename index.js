@@ -15,8 +15,8 @@ const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-//mongoose.connect('mongodb://localhost:27017/movieAppDB', { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/movieAppDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +42,7 @@ const passport = require('passport');
 require('./passport');
 
 //info on users
-let users = [
+/*let users = [
   {
     'id': 1,
     'name': 'Iberia',
@@ -53,10 +53,10 @@ let users = [
     'name': 'Britannia',
     'favoriteMovies': ['Avatar']
   }
-];
+];*/
 
 //info on my 10 movies
-let movies = [
+/*let movies = [
   {
     'title': 'About Time',
     'year': '2013',
@@ -227,7 +227,11 @@ let movies = [
     'imageURL': "https://bit.ly/3PWVL5i",
     'featured': false
   }
-];
+];*/
+
+app.get('/documentation', (req, res) => {
+  res.sendFile('public/documentation.html', { root: __dirname });
+});
 
 //route all of the endpoints
 /*//Return a list of ALL movies to the user OLD CODE W/O JWT
