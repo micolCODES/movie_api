@@ -233,12 +233,6 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 
-//route all of the endpoints
-/*//Return a list of ALL movies to the user OLD CODE W/O JWT
-app.get('/movies', (req, res) => {
-res.status(200).json(movies);
-});*/
-//Return a list of ALL movies to the user W/JWT
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
@@ -286,33 +280,7 @@ app.get('/movies/directors/:directorName', passport.authenticate('jwt', { sessio
   }
 })
 
-//Allow new users to register - OLD CODE
-/*app.post('/users', (req, res) => {
-const newUser = req.body;
-if (newUser.name) {
-newUser.id = uuid.v4();
-users.push(newUser);
-res.status(201).json(newUser);
-} else {
-res.status(400).send('The new user must have a name')
-}
-})*/
-
-//Add a user - NEW CODE
-/* We’ll expect JSON in this format
-{
-ID: Integer,
-Username: String,
-Password: String,
-Email: String,
-Birthday: Date
-}*/
 app.post('/users',
-  // Validation logic here for request
-  //you can either use a chain of methods like .not().isEmpty()
-  //which means "opposite of isEmpty" in plain english "is not empty"
-  //or use .isLength({min: 5}) which means
-  //minimum value of 5 characters are only allowed
   [
     check('Username', 'Username is required').isLength({ min: 5 }),
     check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -377,32 +345,6 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
     });
 });
 
-/*//Allow users to update their user info (username) OLD CODE
-app.put('/users/:id', (req, res) => {
-const { id } = req.params; //this id is a string
-const updatedUser = req.body;
-
-  let user = users.find(user => user.id == id); // this has 2 = because we are comparing string to number
-
-  if (user) {
-    user.name = updatedUser.name;
-    res.status(200).json(user);
-  } else {
-    res.status(400).send('The user could not be found');
-  }
-})*/
-
-// Update a user's info, by username - NEW CODE W/MONGOOSE
-/* We’ll expect JSON in this format
-{
-Username: String,
-(required)
-Password: String,
-(required)
-Email: String,
-(required)
-Birthday: Date
-}*/
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
   check('Username', 'Username is required').isLength({ min: 5 }),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
@@ -438,20 +380,6 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }), [
     });
 });
 
-/*//Allow users to add a movie to their list of favorites  OLD CODE
-app.post('/users/:id/:movieTitle', (req, res) => {
-const { id, movieTitle } = req.params;
-
-  let user = users.find(user => user.id == id);
-
-  if (user) {
-    user.favoriteMovies.push(movieTitle);
-    res.status(200).send(`${movieTitle} has been added to the user ${id}\'s list of favorites`);
-  } else {
-    res.status(400).send(`${movieTitle} cannot be added to the user ${id}\'s list of favorites`);
-  }
-})*/
-
 // Add a movie to a user's list of favorites NEW CODE W/MONGOOSE
 app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   console.log(req.params);
@@ -473,20 +401,6 @@ app.post('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { sess
     });
 });
 
-/*//Allow users to remove a movie from their list of favorites
-app.delete('/users/:id/:movieTitle', (req, res) => {
-const { id, movieTitle } = req.params;
-
-  let user = users.find(user => user.id == id);
-
-  if (user) {
-    user.favoriteMovies =user.favoriteMovies.filter(title => title !== movieTitle);
-    res.status(200).send(`${movieTitle} has been removed from the user ${id}\'s list of favorites`);
-  } else {
-    res.status(400).send('There is no such user')
-  }
-})*/
-
 // Remove a movie to a user's list of favorites NEW CODE W/MONGOOSE
 app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, {
@@ -502,20 +416,6 @@ app.delete('/users/:Username/movies/:MovieID', passport.authenticate('jwt', { se
       }
     });
 });
-
-/*//Allow existing users to deregister OLD CODE
-app.delete('/users/:id', (req, res) => {
-const { id } = req.params;
-
-  let user = users.find(user => user.id == id);
-
-  if (user) {
-    users =users.filter(user => user.id != id)
-    res.status(200).send(`User ${id} has been deleted`)
-  } else {
-    res.status(400).send('There is no such user')
-  }
-})*/
 
 // Delete a user by username NEW CODE W/MONGOOSE
 app.delete('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
